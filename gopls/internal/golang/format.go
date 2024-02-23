@@ -83,6 +83,9 @@ func Format(ctx context.Context, snapshot *cache.Snapshot, fh file.Handle) ([]pr
 				modulePath = mi.Path
 			}
 		}
+		if snapshot.Options().Local != "" && modulePath == "" {
+			modulePath = snapshot.Options().Local
+		}
 		b, err := format(ctx, langVersion, modulePath, buf.Bytes())
 		if err != nil {
 			return nil, err
